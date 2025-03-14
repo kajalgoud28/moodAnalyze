@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips and Tricks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1 {
+            color: darkgreen;
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #e6ffe6;
+            margin: 10px 0;
+            padding: 12px;
+            border-left: 5px solid darkgreen;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 15px;
+            font-size: 16px;
+            background: darkgreen;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: green;
+        }
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+        .dark-mode li {
+            background: #333;
+            border-left: 5px solid lightgreen;
+        }
+        .dark-mode button {
+            background: lightgreen;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌿 Tips and Tricks 🌿</h1>
+    <ul>
+        <li>✨ Take deep breaths when feeling anxious.</li>
+        <li>🚶‍♂️ Go for a short walk to clear your mind.</li>
+        <li>📖 Journal your thoughts daily.</li>
+        <li>🎧 Listen to calming music to relax.</li>
+        <li>🛏️ Get at least 7-8 hours of sleep for better mood.</li>
+    </ul>
+
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>

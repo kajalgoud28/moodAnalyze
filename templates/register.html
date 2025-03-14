@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { width: 300px; margin: 100px auto; padding: 20px; background: white; box-shadow: 0px 0px 10px gray; border-radius: 10px; }
+        input { width: 90%; padding: 10px; margin: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background-color: #18BC9C; color: white; padding: 10px; border: none; cursor: pointer; width: 100%; }
+        a { display: block; margin-top: 10px; color: #3498db; text-decoration: none; }
+    </style>
+    <script>
+        function registerUser() {
+            let username = document.getElementById("username").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            new QWebChannel(qt.webChannelTransport, function(channel) {
+                let bridge = channel.objects.bridge;
+                bridge.register_user(username, email, password).then(function(result) {
+                    if (result === "success") {
+                        alert("✅ Registration Successful!");
+                        window.location.href = "login.html";
+                    } else {
+                        alert("❌ " + result);
+                    }
+                }).catch(function(error) {
+                    alert("❌ Error: " + error);
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <input type="text" id="username" placeholder="Username"><br>
+        <input type="email" id="email" placeholder="Email"><br>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button onclick="registerUser()">Register</button>
+        <a href="login.html">Already have an account? Login</a>
+    </div>
+</body>
+</html>

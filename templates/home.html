@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selfie Mood Analyzer</title>
+
+    <!-- Load Qt WebChannel -->
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #b9cff7, #fa41f1);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .header {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+
+        .tagline {
+            font-size: 1.4em;
+            font-weight: 400;
+            margin: 10px 0;
+            color: #FFD700;
+        }
+
+        .description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-box h3 {
+            margin-bottom: 8px;
+            font-size: 1.3em;
+            color: #FFD700;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 12px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .upload-btn {
+            background: #ff9800;
+            color: white;
+        }
+
+        .analyze-btn {
+            background: #4caf50;
+            color: white;
+        }
+
+        .music-btn {
+            background: #e91e63;
+            color: white;
+        }
+
+        #moodImage {
+            display: none;
+            width: 100%;
+            max-width: 250px;
+            margin: 20px auto;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            font-size: 1.1em;
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+
+    <script>
+        var backend = null;
+
+        // Ensure WebChannel is initialized
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+            backend = channel.objects.backend;
+        });
+
+        function playMusic() {
+            if (backend) {
+                backend.openMusic("https://www.youtube.com/watch?v=ZbZSe6N_BXs");
+            } else {
+                console.error("Backend not available!");
+            }
+        }
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('moodImage');
+                output.src = reader.result;
+                output.style.display = "block";
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function analyzeMood() {
+            alert("Analyzing mood... (Feature coming soon!)");
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>📸 Mood Analyzer</h1>
+        <p class="tagline">Discover your emotions through AI-powered analysis!</p>
+        <p class="description">
+            Ever wondered how your face reflects your emotions? Our advanced AI-driven mood analyzer
+            helps you understand your emotional state based on your selfie. Whether you're happy, sad, or
+            somewhere in between, we've got insights to boost your mood!
+        </p>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-box">
+                <h3>📷 AI-Powered Analysis</h3>
+                <p>Detects your emotions from your selfie.</p>
+            </div>
+            <div class="feature-box">
+                <h3>🎵 Mood-Based Music</h3>
+                <p>Plays songs to match your emotions.</p>
+            </div>
+            <div class="feature-box">
+                <h3>📊 Personalized Insights</h3>
+                <p>Provides suggestions to improve your mood.</p>
+            </div>
+        </div>
+    </div>
+    <iframe src="http://127.0.0.1:5007/" width="100%" height="600px" style="border:none;"></iframe>
+
+
+    <!-- Upload & Analysis Section -->
+    
+</body>
+</html>

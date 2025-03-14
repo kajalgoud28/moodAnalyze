@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood History</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function fetchMoodHistory() {
+            try {
+                const response = await fetch('http://localhost:5005/get_mood_history'); // Updated port
+                const data = await response.json();
+
+                if (!data.length) {
+                    document.getElementById("chart-container").innerHTML = "<h3>No mood data available</h3>";
+                    return;
+                }
+
+                const labels = data.map(entry => entry.date);
+                const moods = ["happy", "sad", "neutral", "angry", "fear"];
+
+                const datasets = moods.map(mood => ({
+                    label: mood.charAt(0).toUpperCase() + mood.slice(1),
+                    data: data.map(entry => entry.moods[mood] || 0),
+                    backgroundColor: getColor(mood),
+                    borderColor: getColor(mood),
+                    borderWidth: 1
+                }));
+
+                new Chart(document.getElementById("moodChart"), {
+                    type: "bar",
+                    data: { labels, datasets },
+                    options: { responsive: true }
+                });
+            } catch (error) {
+                console.error("Error fetching mood history:", error);
+                document.getElementById("chart-container").innerHTML = "<h3>Error loading mood data</h3>";
+            }
+        }
+
+        function getColor(mood) {
+            const colors = {
+                happy: "rgba(255, 206, 86, 0.6)",
+                sad: "rgba(54, 162, 235, 0.6)",
+                neutral: "rgba(75, 192, 192, 0.6)",
+                angry: "rgba(255, 99, 132, 0.6)",
+                fear: "rgba(153, 102, 255, 0.6)"
+            };
+            return colors[mood] || "rgba(200, 200, 200, 0.6)";
+        }
+
+        window.onload = fetchMoodHistory;
+    </script>
+</head>
+<body>
+    <h2>Mood History</h2>
+    <div id="chart-container">
+        <canvas id="moodChart"></canvas>
+    </div>
+</body>
+</html>
